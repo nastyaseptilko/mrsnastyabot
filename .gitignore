@@ -44,3 +44,6 @@ dump.rdb
 #docker
 docker-compose-work.yml
 add_enviroment
+
+#env
+.env
