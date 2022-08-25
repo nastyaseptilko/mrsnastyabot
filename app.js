@@ -34,7 +34,7 @@ app.post('/', (req, res) => {
 	if(!message) {
 		return res.end();
 	}
-	if(photo.length){
+	if(photo && photo.length){
 		axios
 		.post(
 			`${TELEGRAM_API}/sendPhoto`,
