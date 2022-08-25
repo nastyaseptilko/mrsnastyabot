@@ -7,7 +7,7 @@ const axios = require('axios');
 
 const { PORT, TELEGRAM_TOKEN, SERVER_URL } = process.env;
 const TELEGRAM_API = `https://api.telegram.org/bot${TELEGRAM_TOKEN}`;
-const TELEGRAM_FILE_API = `https://api.telegram.org/file/bot${TELEGRAM_TOKEN}`;
+// const TELEGRAM_FILE_API = `https://api.telegram.org/file/bot${TELEGRAM_TOKEN}`;
 
 const setupWebhook = async () => {
     try {
@@ -32,10 +32,12 @@ app.post('/', (req, res) => {
 	const { message } = req.body
 	const photo = message.photo;
 
+	console.log(photo, 'photo')
 	if(!message || !photo) {
 		return res.end();
 	}
 	if(photo.lenght){
+		console.log('fff', photo[0].file_id)
 		axios
 		.post(
 			`${TELEGRAM_API}/sendPhoto`,
