@@ -31,7 +31,7 @@ app.post('/', (req, res) => {
 	const { message } = req.body
 	const photo = message.photo;
 
-	if(!message || !photo) {
+	if(!message) {
 		return res.end();
 	}
 	if(photo.length){
@@ -41,6 +41,7 @@ app.post('/', (req, res) => {
 			{
 				chat_id: message.chat.id,
 				photo: photo[0].file_id,
+				caption: message.caption,
 			}
 		)
 		.then(() => {
