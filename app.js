@@ -5,8 +5,9 @@ const app = express();
 const bodyParser = require('body-parser');
 const axios = require('axios');
 
-const { PORT, TELEGRAM_TOKEN, SERVER_URL } = process.env
-const TELEGRAM_API = `https://api.telegram.org/bot${TELEGRAM_TOKEN}`
+const { PORT, TELEGRAM_TOKEN, SERVER_URL } = process.env;
+const TELEGRAM_API = `https://api.telegram.org/bot${TELEGRAM_TOKEN}`;
+const TELEGRAM_FILE_API = `https://api.telegram.org/file/bot${TELEGRAM_TOKEN}`;
 
 const setupWebhook = async () => {
     try {
@@ -29,9 +30,26 @@ app.get('/name', (req, res) => {
 
 app.post('/', (req, res) => {
 	const { message } = req.body
+	const photo = message.photo;
 
-	if(!message) {
+	if(!message || !photo) {
 		return res.end();
+	}
+	if(photo.lenght){
+		axios
+		.post(
+			`${TELEGRAM_API}/sendPhoto`,
+			{
+				chat_id: message.chat.id,
+				photo: photo[0].file_id,
+			}
+		)
+		.then(() => {
+			res.end('ok');
+		})
+		.catch((err) => {
+			res.end('When you send an error has occurred:' + err);
+		})
 	}
 	axios
 		.post(
