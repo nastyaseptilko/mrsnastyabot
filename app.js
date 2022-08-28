@@ -29,7 +29,7 @@ app.get('/name', (req, res) => {
     res.send('<h1> Telegram server </h1>');
 });
 
-app.post('/', (req, res) => {
+app.post('/', async (req, res) => {
 	console.log(3)
 	const { message } = req.body
 	const photo = message.photo;
@@ -45,7 +45,7 @@ app.post('/', (req, res) => {
 	if(photo && photo.length){
 		console.log(1);
 		// return sendPhoto(TELEGRAM_API, message);
-		axios
+		return await axios
         .post(
             `${TELEGRAM_API}/sendPhoto`,
             {
@@ -59,11 +59,11 @@ app.post('/', (req, res) => {
         })
         .catch((err) => {
             res.end('Photo does not send:' + err);
-        });
+        })
 	}
 	console.log(2);
 	// return sendMessage(TELEGRAM_API, message);
-	axios
+	await axios
         .post(
             `${TELEGRAM_API}/sendMessage`,
             {
@@ -76,7 +76,7 @@ app.post('/', (req, res) => {
         })
         .catch((err) => {
             res.end('When you send message an error has occurred:' + err);
-        });
+        })
 });
 
 app.listen(PORT, async () => {
