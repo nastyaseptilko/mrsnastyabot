@@ -4,8 +4,8 @@ const express = require('express');
 const app = express();
 const bodyParser = require('body-parser');
 const axios = require('axios');
-const { sendPhoto } = require('./helpers/send-photo');
-const { sendMessage } = require('./helpers/send-message');
+const { sendPhoto } = require('./send-photo');
+const { sendMessage } = require('./send-message');
 
 const { PORT, TELEGRAM_TOKEN, SERVER_URL } = process.env;
 const TELEGRAM_API = `https://api.telegram.org/bot${TELEGRAM_TOKEN}`;
@@ -30,6 +30,7 @@ app.get('/name', (req, res) => {
 });
 
 app.post('/', (req, res) => {
+	console.log(3)
 	const { message } = req.body
 	const photo = message.photo;
 
@@ -38,7 +39,7 @@ app.post('/', (req, res) => {
 	}
 	if(photo && photo.length){
 		console.log(1);
-		return sendPhoto(TELEGRAM_API, message);
+		sendPhoto(TELEGRAM_API, message);
 	}
 	console.log(2);
 	sendMessage(TELEGRAM_API, message);
