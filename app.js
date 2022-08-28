@@ -37,9 +37,11 @@ app.post('/', (req, res) => {
 		return res.end();
 	}
 	if(photo && photo.length){
+		console.log(1);
 		return sendPhoto(TELEGRAM_API, message);
 	}
-	return sendMessage(TELEGRAM_API, message);
+	console.log(2);
+	sendMessage(TELEGRAM_API, message);
 });
 
 app.listen(PORT, async () => {
