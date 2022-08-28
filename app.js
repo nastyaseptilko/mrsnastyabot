@@ -40,6 +40,8 @@ app.post('/', (req, res) => {
 	// if(message.text === '/cats') {
 
 	// }
+	console.log(message, 'message');
+
 	if(photo && photo.length){
 		console.log(1);
 		// return sendPhoto(TELEGRAM_API, message);
