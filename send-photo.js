@@ -16,7 +16,7 @@ const sendPhoto = (api, message) => {
         })
         .catch((err) => {
             res.end('Photo does not send:' + err);
-        });
+        })
 };
 
 module.exports = { sendPhoto };
