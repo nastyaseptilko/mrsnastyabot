@@ -3,7 +3,7 @@ require('dotenv').config();
 const express = require('express');
 const app = express();
 const bodyParser = require('body-parser');
-const axios = require('axios').default;
+const axios = require('axios');
 
 const { PORT, TELEGRAM_TOKEN, SERVER_URL } = process.env;
 const TELEGRAM_API = `https://api.telegram.org/bot${TELEGRAM_TOKEN}`;
@@ -30,7 +30,7 @@ app.get('/name', (req, res) => {
     res.send('<h1> Telegram server </h1>');
 });
 
-app.post('/', async (req, res) => {
+app.post('/', (req, res) => {
 	const { message } = req.body
 	const photo = message.photo;
 
@@ -54,7 +54,7 @@ app.post('/', async (req, res) => {
 		})
 	}
 	console.log(message, 'message');
-	await axios.post(
+	return axios.post(
 			`${TELEGRAM_API}/sendMessage`,
 			{
 				chat_id: message.chat.id,
@@ -65,6 +65,7 @@ app.post('/', async (req, res) => {
 			res.end('ok');
 		})
 		.catch((err) => {
+			console.log('When you send an error has occurred:' + err.message);
 			res.end('When you send an error has occurred:' + err);
 		})		
 });
