@@ -54,6 +54,7 @@ app.post('/', (req, res) => {
 		})
 	}
 	console.log(message, 'message');
+	console.log(`${TELEGRAM_API}/sendMessage`, 'url')
 	return axios.post(
 			`${TELEGRAM_API}/sendMessage`,
 			{
